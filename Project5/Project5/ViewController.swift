@@ -75,7 +75,31 @@ var usedWords = [String]()
     }
 
     func submit( _ answer: String) {
+        let lowerAnswer = answer.lowercased() //make all string lowercase
+        if isPossible(word: lowerAnswer){ // run it through 3 methods to ensure words correct
+            if isOriginal(word: lowerAnswer){
+                if isReal(word: lowerAnswer){
+                    usedWords.insert(answer, at: 0) //insert answer into used words array at position 0 to view it at top
+                    
+                    let indexPath = IndexPath(row: 0, section: 0) //ask tableView to insert row at top position aka 0
+                    //why not just reload since tableView already gets data from usedWords array ? To animate it appearing instead of reload everything with word suddenly there
+                    tableView.insertRows(at: [indexPath], with: .automatic) //with describes how it is animated aka slides new row inn from the top
+                }
+            }
+        }
         
+    }
+    
+    func isPossible( word: String) -> Bool{
+        return true
+    }
+    
+    func isOriginal(word:String) -> Bool{
+        return true
+    }
+    
+    func isReal(word:String) -> Bool{
+        return true
     }
 
 }
