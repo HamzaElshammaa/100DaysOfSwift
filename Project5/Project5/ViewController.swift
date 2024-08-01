@@ -90,16 +90,28 @@ var usedWords = [String]()
         
     }
     
-    func isPossible( word: String) -> Bool{
-        return true
+    func isPossible(word: String) -> Bool{
+        guard var tempWord = title?.lowercased() else {return false} //make sure we have title in view and extract it and lowercase it
+        
+        for letter in word { //loops over all letters in word input by user
+            if let position = tempWord.firstIndex(of: letter) { //find first time that letter appears in temp word
+                tempWord.remove(at: position) // if letter found remove it from temp word
+            }
+            else { return false } // if letter not found return false
+        }
+        return true //if all letters founnd return true
     }
     
     func isOriginal(word:String) -> Bool{
-        return true
+        return !usedWords.contains(word) //not to flip result of contains
     }
     
-    func isReal(word:String) -> Bool{
-        return true
+    func isReal(word:String) -> Bool{ //ui kit class UIKitCheker that spots spelling errors
+        let checker = UITextChecker()
+        let range = NSRange(location: 0, length: word.utf16.count) // tell it to scan at position 0 till end of word using utf16count
+        let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
+        
+        return misspelledRange.location == NSNotFound
     }
 
 }
