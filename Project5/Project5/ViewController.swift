@@ -19,7 +19,7 @@ var usedWords = [String]()
         //new right bar button item with add symbol to add word
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptForAnswer)) //calls proptForAnswer
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(startGame))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(startNewGame))
         
         //to load file start.txt
         //loads the file start words
@@ -42,10 +42,19 @@ var usedWords = [String]()
         
     }
     
-
+  @objc  func startNewGame() {
+      let ac = UIAlertController(title: "Do you want to start a new game ?", message: nil, preferredStyle: .alert)
+      ac.addAction(UIAlertAction(title: "Yes", style: .default ))
+      present(ac, animated: true)
+      
+           title = allWords.randomElement() //sets title of view controller to random word
+           usedWords.removeAll(keepingCapacity: true) // removes all value sfrom used words array
+           tableView.reloadData() //
+      
+       }
     
     
- @objc func startGame() {
+ func startGame() {
         title = allWords.randomElement() //sets title of view controller to random word
         usedWords.removeAll(keepingCapacity: true) // removes all value sfrom used words array
         tableView.reloadData() //
