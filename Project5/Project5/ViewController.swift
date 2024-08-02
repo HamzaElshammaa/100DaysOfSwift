@@ -76,6 +76,9 @@ var usedWords = [String]()
 
     func submit( _ answer: String) {
         let lowerAnswer = answer.lowercased() //make all string lowercase
+        let errorTitle: String
+        let errorMessage: String
+        
         if isPossible(word: lowerAnswer){ // run it through 3 methods to ensure words correct
             if isOriginal(word: lowerAnswer){
                 if isReal(word: lowerAnswer){
@@ -84,9 +87,22 @@ var usedWords = [String]()
                     let indexPath = IndexPath(row: 0, section: 0) //ask tableView to insert row at top position aka 0
                     //why not just reload since tableView already gets data from usedWords array ? To animate it appearing instead of reload everything with word suddenly there
                     tableView.insertRows(at: [indexPath], with: .automatic) //with describes how it is animated aka slides new row inn from the top
+                    return
+                } else {
+                    errorTitle = "Word not Recognized"
+                    errorMessage = "You can't just make words up"
                 }
+            } else {
+                errorTitle = "Word already used"
+                errorMessage = "Be more original"
             }
+        } else {
+            errorTitle = "Word not possible"
+            errorMessage = "You cant spell that word from \(title!.lowercased())"
         }
+        let ac = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "ok", style: .default))
+        present(ac, animated: true)
         
     }
     
