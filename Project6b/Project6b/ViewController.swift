@@ -50,6 +50,28 @@ class ViewController: UIViewController {
         view.addSubview(label5)
         
         //running app now makes labels overlap
+        
+        let viewsDictionary = ["label1": label1, "label2": label2, "label3": label3, "label4": label4, "label5": label5] //dictionnary which stores labels and their names as keys
+        
+        //or do this in a loop
+//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[label1]|", metrics: nil, views: viewsDictionary))
+//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[label2]|", metrics: nil, views: viewsDictionary))
+//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[label3]|", metrics: nil, views: viewsDictionary))
+//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[label4]|", metrics: nil, views: viewsDictionary))
+//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[label5]|", metrics: nil, views: viewsDictionary))
+        
+        for label in viewsDictionary.keys {
+            //addConstraints adds array of constraints to view, NSLlayoutConstraint.constraints(withVisualFormat is the autolayout method that converts vfl into array of constraints
+            //H:|[\(label)]| this describes how we want layout to look H means horisontal layout, | means edge of view, [] means put label1 here
+            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[\(label)]|",options: [] ,metrics: nil, views: viewsDictionary))
+        }
+        
+        //V:|[label1]-[label2]-[label3]-[label4]-[label5] the - means space, no | at the end so leaves whitespace after last label
+        //(==88) means size must be 88 points
+        
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(==88)]-[label2(==88)]-[label3(==88)]-[label4(==88)]-[label5(==88)]-",options: [] ,metrics: nil, views: viewsDictionary))
+        
+        
     }
     
 
