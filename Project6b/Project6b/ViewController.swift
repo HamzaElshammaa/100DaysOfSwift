@@ -70,10 +70,12 @@ class ViewController: UIViewController {
         //(==88) means size must be 88 points
         //(>=10)-| means atleast 10 points space
         //metrics give vfl a set of sizes with names then use these instead of harcoding numbers in each label
+        //@999 sets priority less than 1000
+        //adding label1 insntead of labelheight means let all labels same height as label1
         let metrics =  ["labelHeight": 88]
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(==labelHeight)]-[label2(==labelHeight)]-[label3(==labelHeight)]-[label4(==labelHeight)]-[label5(==labelHeight)]-(>=10)-|",options: [] ,metrics: metrics, views: viewsDictionary))
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(==labelHeight@999)]-[label2(label1)]-[label3(label1)]-[label4(label1)]-[label5(label1)]-(>=10)-|",options: [] ,metrics: metrics, views: viewsDictionary))
         
-        
+        //can give layout constraints priority by default all have priority 1000
         
     }
     
