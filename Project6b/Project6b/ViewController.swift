@@ -72,11 +72,35 @@ class ViewController: UIViewController {
         //metrics give vfl a set of sizes with names then use these instead of harcoding numbers in each label
         //@999 sets priority less than 1000
         //adding label1 insntead of labelheight means let all labels same height as label1
-        let metrics =  ["labelHeight": 88]
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(==labelHeight@999)]-[label2(label1)]-[label3(label1)]-[label4(label1)]-[label5(label1)]-(>=10)-|",options: [] ,metrics: metrics, views: viewsDictionary))
+        
+//        let metrics =  ["labelHeight": 88]
+//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(==labelHeight@999)]-[label2(label1)]-[label3(label1)]-[label4(label1)]-[label5(label1)]-(>=10)-|",options: [] ,metrics: metrics, views: viewsDictionary))
         
         //can give layout constraints priority by default all have priority 1000
         
+        
+        //new Anchor code
+        
+        //this will loop over all anchors giving them same width as mainn view and height of 88
+        //for top anchor use optionals since first loop there are no top anchors
+        
+        var previous: UILabel?
+        
+        for label in [label1, label2, label3, label4, label5] {
+            label.widthAnchor.constraint(equalTo : view.widthAnchor).isActive = true
+            label.heightAnchor.constraint(equalToConstant: 88).isActive = true
+            
+            if let previous = previous {
+                label.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 10).isActive = true
+            } else {
+                //makes top label go under safe area
+                label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+            }
+            //makes current label the previous for the next loop
+            previous = label
+            
+            
+        }
     }
     
 
