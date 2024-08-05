@@ -68,8 +68,11 @@ class ViewController: UIViewController {
         
         //V:|[label1]-[label2]-[label3]-[label4]-[label5] the - means space, no | at the end so leaves whitespace after last label
         //(==88) means size must be 88 points
+        //(>=10)-| means atleast 10 points space
+        //metrics give vfl a set of sizes with names then use these instead of harcoding numbers in each label
+        let metrics =  ["labelHeight": 88]
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(==labelHeight)]-[label2(==labelHeight)]-[label3(==labelHeight)]-[label4(==labelHeight)]-[label5(==labelHeight)]-(>=10)-|",options: [] ,metrics: metrics, views: viewsDictionary))
         
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(==88)]-[label2(==88)]-[label3(==88)]-[label4(==88)]-[label5(==88)]-",options: [] ,metrics: nil, views: viewsDictionary))
         
         
     }
