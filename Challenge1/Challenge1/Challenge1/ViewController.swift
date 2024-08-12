@@ -38,10 +38,13 @@ var shoppingList = [String]()
     @objc func refreshShoppingList(){
         let ac = UIAlertController(title: "are you sure you want to clear shopping list ?", message: nil, preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "Yes", style: .default, handler: clearShoppingList)
+        ac.addAction(yesAction)
+        present(ac, animated: true)
         }
     
     func clearShoppingList(_: UIAlertAction) -> Void{
         shoppingList.removeAll()
+        tableView.reloadData()
     }
     
     @objc func addItem(){
