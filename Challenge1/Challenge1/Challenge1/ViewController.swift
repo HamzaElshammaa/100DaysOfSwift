@@ -16,6 +16,8 @@ var shoppingList = [String]()
         //added item add button
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshShoppingList))
+        
         title = "Your shopping list"
         tableView.reloadData()//
     }
@@ -30,6 +32,16 @@ var shoppingList = [String]()
         let cell = tableView.dequeueReusableCell(withIdentifier: "Item", for: indexPath)
         cell.textLabel?.text = shoppingList[indexPath.row]
         return cell
+    }
+    
+    
+    @objc func refreshShoppingList(){
+        let ac = UIAlertController(title: "are you sure you want to clear shopping list ?", message: nil, preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Yes", style: .default, handler: clearShoppingList)
+        }
+    
+    func clearShoppingList(_: UIAlertAction) -> Void{
+        shoppingList.removeAll()
     }
     
     @objc func addItem(){
